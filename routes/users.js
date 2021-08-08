@@ -1,12 +1,21 @@
+// Modules
 const mongoose = require('mongoose');
 const router = require('express').Router();
 const User = mongoose.model('User');
 const passport = require('passport');
+
+// Internals
 const utils = require('../lib/utils');
+const { validatePostDetails } = require('./validations');
 
 // Register a new user
 router.post('/register', function (req, res, next) {
   const { password, username } = req.body;
+
+  // Server side validation of registration form
+  const { error } = validateRegistrationDetails(req.body);
+  if (error) return res.status(400).send(error.message);
+
   const { salt, hash } = utils.generateSaltAndHash(password);
 
   const newUser = new User({ username, hash, salt });

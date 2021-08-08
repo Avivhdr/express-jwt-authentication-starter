@@ -13,6 +13,7 @@ require('dotenv').config();
 
 // Create the Express application
 var app = express();
+let user = {};
 
 // Configures the database and opens a global connection that can be used in any module with `mongoose.connection`
 require('./config/database');
@@ -21,7 +22,8 @@ require('./config/database');
 require('./models/user');
 
 // Pass the global passport object into the configuration function
-require('./config/passport')(passport);
+require('./config/passportJWT')(passport);
+require('./config/passportOAuth')(passport);
 
 // This will initialize the passport object on every request
 app.use(passport.initialize());
@@ -46,10 +48,31 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Imports all of the routes from ./routes/index.js
 app.use(require('./routes'));
 
+app.get("/user", (req, res) => {
+  console.log("getting user data!");
+  res.send({});
+});
+
+app.get("/auth/logout", (req, res) => {
+  console.log("logging out!");
+  user = {};
+  res.redirect("/");
+});
+
+function errorMiddleware(err, req, res, next) {
+  if (err) {
+    res.send('<h1> Error from errorMiddleware </h1>');
+  } else {
+    next();
+  }
+}
+
+app.use(errorMiddleware); // error handler should be last
+
 
 /**
  * -------------- SERVER ----------------
  */
 
 // Server listens on http://localhost:3000
-app.listen(3000);
+app.listen(5000, () => console.log('Develop Listening on 5000!'));
