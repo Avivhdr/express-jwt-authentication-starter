@@ -24,5 +24,9 @@ To start the app, you will need to run both an Express server, and then visit `h
 node app.js
 
 ```
-JWT defenition:
+
+## Refrences: 
+* https://hasura.io/blog/best-practices-of-using-jwt-with-graphql/
+
+* JWT defenition:
 https://datatracker.ietf.org/doc/html/rfc7519#section-4
