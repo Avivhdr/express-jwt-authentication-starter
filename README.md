@@ -11,14 +11,18 @@ PRIVATE_KEY=<private key>
 You will also need to start the Mongo DB database using the `mongod` process.  I run this process persistently in the background, but you could also just type `mongod` in your terminal (assuming you have Mongo DB installed).
 
 
-```
+
 
 ## Quickstart
 
 To start the app, you will need to run both an Express server, and then visit `http://localhost:4200` in the browser.
 
+
+## Start the Express server (http://localhost:3000)
+
 ```
-# Start the Express server (http://localhost:3000)
 node app.js
 
 ```
+JWT defenition:
+https://datatracker.ietf.org/doc/html/rfc7519#section-4
